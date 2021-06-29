@@ -2,14 +2,16 @@
     "name": "blog-app-server",
     "version": "1.0.0",
     "description": "Server side code for Blog App",
-    "main": "server.js",
+    "main": "build/server.js",
     "repository": "https://github.com/harsh2124/blog-app-server",
     "author": "Harsh Patel <dev@coderc.in>",
     "license": "MIT",
     "private": false,
     "scripts": {
-        "build": "babel ./src --out-dir ./build",
-        "dev": "nodemon --exec babel-node src/server.js"
+        "start": "node --require dotenv/config build/server.js",
+        "dev": "NODE_ENV=development nodemon --require dotenv/config --exec babel-node src/server.js",
+        "lint": "./node_modules/.bin/eslint .",
+        "build": "npx babel src --out-dir build --copy-files"
     },
     "dependencies": {
         "cors": "^2.8.5",
@@ -20,6 +22,17 @@
         "@babel/core": "^7.14.6",
         "@babel/node": "^7.14.7",
         "@babel/preset-env": "^7.14.7",
-        "nodemon": "^2.0.8"
+        "dotenv": "^10.0.0",
+        "eslint": "^7.29.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-prettier": "^3.4.0",
+        "nodemon": "^2.0.8",
+        "prettier": "^2.3.2"
+    },
+    "engines": {
+        "node": ">=14.1",
+        "npm": ">=6.1"
     }
 }
