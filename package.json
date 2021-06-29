@@ -8,8 +8,8 @@
     "license": "MIT",
     "private": false,
     "scripts": {
-        "build": "babel server.js --out-file index-compiled.js",
-        "dev": "nodemon --exec babel-node server.js"
+        "build": "babel ./src --out-dir ./build",
+        "dev": "nodemon --exec babel-node src/server.js"
     },
     "dependencies": {
         "cors": "^2.8.5",
