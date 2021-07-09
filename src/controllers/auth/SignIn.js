@@ -9,10 +9,7 @@ const User = require("../../models/user");
  */
 const UserSignIn = async (req, res) => {
     try {
-        const name = "Test";
-        const username = "test";
-        const email = "abc";
-        const password = "abc";
+        const { name, username, email, password } = req.body;
 
         const newUser = new User({
             name,
