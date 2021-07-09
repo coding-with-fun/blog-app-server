@@ -1,4 +1,5 @@
 const logger = require("../../utils/logger");
+const User = require("../../models/user");
 
 /**
  * @type        POST
@@ -8,6 +9,19 @@ const logger = require("../../utils/logger");
  */
 const UserSignIn = async (req, res) => {
     try {
+        const name = "Test";
+        const username = "test";
+        const email = "abc";
+        const password = "abc";
+
+        const newUser = new User({
+            name,
+            username,
+            email,
+            password,
+        });
+        await newUser.save();
+
         return res.status(200).json({
             message: "User signed in successfully",
         });
