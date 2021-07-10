@@ -57,10 +57,7 @@ const signUpCheckReq = () => [
 /**
  * @description Defining SignIn check.
  */
-const signInCheckReq = () => [
-    oneOf([checks.checkUserName, checks.checkEmail]),
-    checks.checkPassword,
-];
+const signInCheckReq = () => [checks.checkEmail, checks.checkPassword];
 
 /**
  * @description Checking for errors.
@@ -69,15 +66,8 @@ const signInCheckReq = () => [
 const returnErrors = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(
-            errors.array()[0]?.nestedErrors
-                ? errors.array()[0]?.nestedErrors[0]
-                : errors.array()[0].msg
-        );
         return res.status(400).json({
-            message: errors.array()[0].nestedErrors
-                ? errors.array()[0].nestedErrors[0].msg
-                : errors.array()[0].msg,
+            message: errors.array()[0].msg,
         });
     }
     next();

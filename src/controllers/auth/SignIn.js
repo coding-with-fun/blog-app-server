@@ -9,11 +9,11 @@ const User = require("../../models/user");
  */
 const UserSignIn = async (req, res) => {
     try {
-        const { name, username, email, password } = req.body;
+        const { email, password } = req.body;
 
         const newUser = new User({
-            name,
-            username,
+            name: "AA",
+            username: "aaa",
             email,
             password,
         });

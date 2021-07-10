@@ -34,5 +34,5 @@ connectDB().then(() => {
         logger.info(`Server is running on port ${PORT}...`);
     });
 
-    app.use(routes);
+    app.use("/api", routes);
 });
