@@ -39,13 +39,6 @@ const UserSchema = mongoose.Schema(
         },
 
         salt: String,
-
-        todoItems: [
-            {
-                type: ObjectId,
-                ref: "ToDoItem",
-            },
-        ],
     },
     {
         timestamps: true,

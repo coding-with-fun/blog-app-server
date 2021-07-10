@@ -48,6 +48,7 @@ const checks = {
  * @description Defining SignUp check.
  */
 const signUpCheckReq = () => [
+    checks.checkName,
     checks.checkUserName,
     checks.checkEmail,
     checks.checkPassword,
