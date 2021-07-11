@@ -15,7 +15,10 @@ const UserSignIn = async (req, res) => {
 
         let existingUser = await User.findOne({
             email,
-        });
+        }).populate(
+            "postsList",
+            "_id title content cleanContent createdAt updatedAt"
+        );
 
         if (!existingUser || !existingUser.authenticate(password)) {
             return res.status(401).json({
