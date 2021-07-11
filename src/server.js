@@ -13,9 +13,30 @@ const routes = require("./routes/routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+let allowedDomains = process.env.FRONTEND_URL;
+
+if (process.env.ENV === "DEV") {
+    allowedDomains = [allowedDomains, "localhost:3000"];
+}
+
+const msg = `This site does not have an access. Only specific domains are allowed to access it.`;
 
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        credentials: true,
+        // eslint-disable-next-line object-shorthand
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
+
+            if (allowedDomains.indexOf(origin) !== -1) {
+                return callback(null, true);
+            }
+
+            return callback(new Error(msg), false);
+        },
+    })
+);
 
 app.use(
     morgan(process.env.ENV === "DEV" ? "dev" : "combined", {
