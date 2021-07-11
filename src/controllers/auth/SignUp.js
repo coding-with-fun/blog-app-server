@@ -6,7 +6,7 @@ const User = require("../../models/user");
 /**
  * @type        POST
  * @route       /api/auth/signup
- * @description Sign In Route.
+ * @description Sign Up Route.
  * @access      Public
  */
 const UserSignUp = async (req, res) => {
@@ -48,7 +48,7 @@ const UserSignUp = async (req, res) => {
             },
             process.env.SECRET,
             {
-                expiresIn: "0.5hr",
+                expiresIn: "24hr",
             }
         );
 

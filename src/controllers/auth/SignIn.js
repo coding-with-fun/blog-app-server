@@ -33,7 +33,7 @@ const UserSignIn = async (req, res) => {
             },
             process.env.SECRET,
             {
-                expiresIn: "0.5hr",
+                expiresIn: "24hr",
             }
         );
 
