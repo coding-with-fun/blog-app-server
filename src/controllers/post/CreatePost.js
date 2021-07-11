@@ -29,13 +29,20 @@ const CreatePost = async (req, res) => {
         const user = await User.findByIdAndUpdate(
             userID,
             {
-                postsList: newPost._id,
+                $push: {
+                    postsList: newPost._id,
+                },
             },
             options
-        ).select({
-            encryptedPassword: 0,
-            salt: 0,
-        });
+        )
+            .populate(
+                "postsList",
+                "_id title content cleanContent createdAt updatedAt"
+            )
+            .select({
+                encryptedPassword: 0,
+                salt: 0,
+            });
 
         if (!user) {
             return res.status(401).json({

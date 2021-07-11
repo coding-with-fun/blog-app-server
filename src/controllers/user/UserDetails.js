@@ -13,17 +13,21 @@ const UserDetails = async (req, res) => {
     try {
         const userID = req.auth;
 
-        let user = await User.findById(userID);
+        const user = await User.findById(userID)
+            .populate(
+                "postsList",
+                "_id title content cleanContent createdAt updatedAt"
+            )
+            .select({
+                encryptedPassword: 0,
+                salt: 0,
+            });
 
         if (!user) {
             return res.status(401).json({
                 message: "User not found. Please check credentials.",
             });
         }
-
-        user = user.toJSON();
-        delete user.salt;
-        delete user.encryptedPassword;
 
         const token = jwt.sign(
             {
