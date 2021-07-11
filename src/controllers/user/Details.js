@@ -15,6 +15,12 @@ const UserDetails = async (req, res) => {
 
         let user = await User.findById(userID);
 
+        if (!user) {
+            return res.status(401).json({
+                message: "User not found. Please check credentials.",
+            });
+        }
+
         user = user.toJSON();
         delete user.salt;
         delete user.encryptedPassword;
