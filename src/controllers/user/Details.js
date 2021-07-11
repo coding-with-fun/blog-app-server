@@ -36,7 +36,7 @@ const UserDetails = async (req, res) => {
         );
 
         return res.status(200).json({
-            message: "User signed in successfully",
+            message: "Fetched user details successfully",
             data: {
                 token,
                 user,
