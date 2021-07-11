@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /**
  * @author @harsh2124
  * @description Entry file for server.
@@ -13,34 +14,28 @@ const routes = require("./routes/routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const allowedDomains = ["http://127.0.0.1:3000", "http://localhost:3000"];
 
 app.use(express.json());
 
-app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    res.setHeader("Access-Control-Allow-Origin", "*");
+app.use(
+    cors({
+        credentials: true,
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
 
-    // Request methods you wish to allow
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-    );
+            if (
+                allowedDomains.indexOf(origin) !== -1 ||
+                origin.includes("https://coderc-blog.vercel.app")
+            ) {
+                return callback(null, true);
+            }
 
-    // Request headers you wish to allow
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-Requested-With,content-type"
-    );
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader("Access-Control-Allow-Credentials", true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
-app.use(cors());
+            const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+            return callback(new Error(msg), false);
+        },
+    })
+);
 
 app.use(
     morgan(process.env.ENV === "DEV" ? "dev" : "combined", {
