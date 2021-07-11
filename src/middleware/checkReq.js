@@ -42,6 +42,29 @@ const checks = {
             }
             return true;
         }),
+
+    // For post
+    checkPostTitle: check("title")
+        .not()
+        .trim()
+        .isEmpty()
+        .withMessage("Post title is required.")
+        .isLength({ max: 40 })
+        .withMessage("Title must have at most 40 characters."),
+    checkPostContent: check("content")
+        .not()
+        .trim()
+        .isEmpty()
+        .withMessage("Post content is required."),
+    checkPostCleanContent: check("cleanContent")
+        .not()
+        .trim()
+        .isEmpty()
+        .withMessage("Post content is required.")
+        .isLength({ min: 100 })
+        .withMessage("Content must have at least 100 characters.")
+        .isLength({ max: 10000 })
+        .withMessage("Content must have at most 10000 characters."),
 };
 
 /**
@@ -61,6 +84,15 @@ const signUpCheckReq = () => [
 const signInCheckReq = () => [checks.checkEmail, checks.checkPassword];
 
 /**
+ * @description Defining Post check.
+ */
+const postCheckReq = () => [
+    checks.checkPostTitle,
+    checks.checkPostContent,
+    checks.checkPostCleanContent,
+];
+
+/**
  * @description Checking for errors.
  * @returns Array of errors
  */
@@ -77,4 +109,5 @@ const returnErrors = (req, res, next) => {
 module.exports = {
     validateSignUp: [signUpCheckReq(), returnErrors],
     validateSignIn: [signInCheckReq(), returnErrors],
+    validateNewPost: [postCheckReq(), returnErrors],
 };

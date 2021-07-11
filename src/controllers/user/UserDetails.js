@@ -7,7 +7,7 @@ const User = require("../../models/user");
  * @type        GET
  * @route       /api/user
  * @description User Details Route.
- * @access      Public
+ * @access      Private
  */
 const UserDetails = async (req, res) => {
     try {

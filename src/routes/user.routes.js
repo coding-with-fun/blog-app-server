@@ -1,6 +1,6 @@
 const express = require("express");
-const DeleteUser = require("../controllers/user/Delete");
-const UserDetails = require("../controllers/user/Details");
+const DeleteUser = require("../controllers/user/DeleteUser");
+const UserDetails = require("../controllers/user/UserDetails");
 const { authenticateToken } = require("../middleware/auth");
 
 const UserRoute = express.Router();

@@ -39,6 +39,13 @@ const UserSchema = mongoose.Schema(
         },
 
         salt: String,
+
+        postsList: [
+            {
+                type: ObjectId,
+                ref: "Post",
+            },
+        ],
     },
     {
         timestamps: true,

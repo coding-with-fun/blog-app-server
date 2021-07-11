@@ -7,7 +7,7 @@ const User = require("../../models/user");
  * @type        DELETE
  * @route       /api/user/delete
  * @description Delete User Route.
- * @access      Public
+ * @access      Private
  */
 const DeleteUser = async (req, res) => {
     try {
